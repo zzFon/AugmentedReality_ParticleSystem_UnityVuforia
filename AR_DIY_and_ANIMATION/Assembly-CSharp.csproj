@@ -55,6 +55,7 @@
      <Compile Include="Assets\CoolShowWhenTrack.cs" />
      <Compile Include="Assets\Destroy.cs" />
      <Compile Include="Assets\Focusing.cs" />
+     <Compile Include="Assets\SetARCamera.cs" />
      <Compile Include="Assets\Sripts\CORE\CubeController.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\SinkWChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\SourceWChange.cs" />

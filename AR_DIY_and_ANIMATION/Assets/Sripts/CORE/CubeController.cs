@@ -32,6 +32,7 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 	//表示Target的Quality
 	public ImageTargetBuilder.FrameQuality currentQuality;
 
+
 	void Start()
 	{
 		targetBuildingBehaviour = GetComponent<UserDefinedTargetBuildingBehaviour>();
@@ -101,16 +102,20 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 		cylinder.transform.localRotation = Quaternion.identity;
 	}*/
 
+	public ImageTargetBuilder builder;
 	/// 此方法attached在button上，用于开始create新object（ImageTarget）并向事件system send new TrackableSource is available
 	/// 注意，是开始create而不是this方法就能create好了，它需要和OnNewTrackableSource配合使用
 	public void IBuildNewTarget()
 	{
 		//create新的target的名字,用于BuildNewTarget方法。上文create的是新的ImageTarget的名字，用于在Hierarchy里display
+		//string targetName = string.Format(imageTargetTemplate.TrackableName + targetCounter);
 		string targetName = string.Format(imageTargetTemplate.TrackableName + targetCounter);
 
 		//This will start building a new target and report back to the event handlers as soon as a new TrackableSource is available.
 		//create新object
 		targetBuildingBehaviour.BuildNewTarget(targetName, imageTargetTemplate.GetSize().x);
+	
+		//builder.Build (targetName, 300);
 	}
 
 	//public Text countText;
@@ -122,7 +127,7 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 		targetCounter++;
 		objectTracker.DeactivateDataSet(dataSet);
 		ImageTargetBehaviour imageTargetCopy = Instantiate(imageTargetTemplate);
-		imageTargetCopy.gameObject.name = "new_Target" + targetCounter;
+		//imageTargetCopy.gameObject.name = "new_Target" + targetCounter;
 
 		dataSet.CreateTrackable(trackableSource, imageTargetCopy.gameObject);
 
@@ -131,6 +136,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 			GameObject cylinder;
 			if (haveSource == 0)//the first SOURCE,then create SOURCE
 			{
+				imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+
 				cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				cylinder.name = "ssource";
 
@@ -147,6 +154,10 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 			}
 			else if(haveSource == 1)//not the first SOURCE,then renew SOURCE
 			{
+				GameObject ob = GameObject.Find ("Source_Field");
+				ob.name = "Destroyed_Source_Field";// disconnect the old one
+				imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+
 				cylinder = GameObject.Find ("ssource");
 
 				cylinder.transform.parent = imageTargetCopy.transform;
@@ -165,6 +176,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 			GameObject sphere;
 			if (haveSink == 0) //the first SINK,then create SINK
 			{
+				imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
+
 				sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 				sphere.name = "ssink";
 
@@ -177,6 +190,10 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 			} 
 			else if (haveSink == 1) //not the first SINK,then renew SINK
 			{
+				GameObject ob = GameObject.Find ("Sink_Field");
+				ob.name = "Destroyed_Sink_Field";// disconnect the old one
+				imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
+
 				sphere = GameObject.Find ("ssink");
 
 				sphere.transform.parent = imageTargetCopy.transform;
@@ -187,28 +204,34 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 		}
 		else if(SetVortex.isOn == true)
 		{
-			GameObject cylinder;
+			GameObject cube;
 			if(haveVortex == 0)//the first VORTEX,then create VORTEX
 			{
-				cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-				cylinder.name ="vvortex";
+				imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
 
-				cylinder.transform.parent = imageTargetCopy.transform;
-				cylinder.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				cylinder.transform.localPosition = new Vector3(0,0,0);
-				cylinder.transform.localRotation = Quaternion.identity;
+				cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				cube.name ="vvortex";
+
+				cube.transform.parent = imageTargetCopy.transform;
+				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
+				cube.transform.localPosition = new Vector3(0,0,0);
+				cube.transform.localRotation = Quaternion.identity;
 				print ("vvortex");
 
 				haveVortex = 1;
 			}
 			else if(haveVortex == 1)//not the first VORTEX,then renew VORTEX
 			{
-				cylinder = GameObject.Find ("vvortex");
+				GameObject ob = GameObject.Find ("Vortex_Field");
+				ob.name = "Destroyed_Vortex_Field";// disconnect the old one
+				imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
 
-				cylinder.transform.parent = imageTargetCopy.transform;
-				cylinder.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				cylinder.transform.localPosition = new Vector3(0,0,0);
-				cylinder.transform.localRotation = Quaternion.identity;
+				cube = GameObject.Find ("vvortex");
+
+				cube.transform.parent = imageTargetCopy.transform;
+				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
+				cube.transform.localPosition = new Vector3(0,0,0);
+				cube.transform.localRotation = Quaternion.identity;
 				print ("vvortex");
 			}
 		}
@@ -217,6 +240,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 			GameObject cylinder;
 			if (haveUniform == 0) //the first UNIFROM,then create UNIFORM
 			{
+				imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+
 				cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				cylinder.name = "uuniform";
 
@@ -224,17 +249,23 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
+				cylinder.transform.Rotate (0,0,90);
 
 				haveUniform = 1;
 			}
 			else if (haveUniform == 1)//not the first UNIFORM,then renew UNIFORM 
 			{
+				GameObject ob = GameObject.Find ("Uniform_Field");
+				ob.name = "Destroyed_Unfirom_Field";// disconnect the old one
+				imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+
 				cylinder = GameObject.Find ("uuniform");
 
 				cylinder.transform.parent = imageTargetCopy.transform;
 				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
+				cylinder.transform.Rotate (0,0,90);
 			}
 		}
 			

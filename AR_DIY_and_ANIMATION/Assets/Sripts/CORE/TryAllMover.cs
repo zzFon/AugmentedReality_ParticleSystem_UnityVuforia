@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
 
 public class TryAllMover : MonoBehaviour {
 
@@ -147,7 +148,7 @@ public class TryAllMover : MonoBehaviour {
 			{
 				print("Vortex FOUND");
 				vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
-				vortex_w = 5.0f / vortex_dis;
+				vortex_w = 3.0f / vortex_dis;
 				//vortex_w = 10.0f / vortex_dis;
 
 				Vector3 vecc = vortex_w * VortexVec (vortex);
@@ -166,7 +167,7 @@ public class TryAllMover : MonoBehaviour {
 			{
 				print("Uniform FOUND");
 				uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
-				uniform_w = 1.0f / uniform_dis;
+				uniform_w = 3.0f / uniform_dis;
 
 				Vector3 vecc = uniform_w * UniformVec (uniform);
 				//rb.velocity = rb.velocity + vecc * uniform_f;
@@ -231,8 +232,44 @@ public class TryAllMover : MonoBehaviour {
 
 	Vector3 UniformVec(GameObject uniform)//3D
 	{
-		Vector3 uniform_vec = new Vector3(1,0,0);
+		GameObject unf = GameObject.Find ("Uniform_Field");
+	
+		// calculate the direction vector of the UNIFORM field using the cylinder's rotation
+		/*float angleX = unf.transform.rotation.eulerAngles.x;
+		float angleY = unf.transform.rotation.eulerAngles.y;
+		float angleZ = unf.transform.rotation.eulerAngles.z;*/
+		Vector3 ang = GetInspectorRotationValueMethod (unf.transform);
+		float tx = Mathf.Cos (ang.y/180*Mathf.PI);
+		float ty = 0; // only considered 2D field
+		float tz = -1 * Mathf.Sin (ang.y/180*Mathf.PI);
+		Vector3 uniform_vec = new Vector3(tx,ty,tz);
+
+		// Normalize the direction vector
 		uniform_vec = uniform_vec / Vector3.Magnitude (uniform_vec);
+
+		//print (ang.x+","+ang.y+","+ang.z);
+		//print (uniform_vec.x+","+uniform_vec.y+","+uniform_vec.z);
+
 		return uniform_vec;
+	}
+
+	//get rotation on Inspector
+	public Vector3 GetInspectorRotationValueMethod(Transform transform)
+	{
+		System.Type transformType = transform.GetType();
+		PropertyInfo m_propertyInfo_rotationOrder = transformType.GetProperty("rotationOrder", BindingFlags.Instance | BindingFlags.NonPublic);
+		object m_OldRotationOrder = m_propertyInfo_rotationOrder.GetValue(transform, null);
+		MethodInfo m_methodInfo_GetLocalEulerAngles = transformType.GetMethod("GetLocalEulerAngles", BindingFlags.Instance | BindingFlags.NonPublic);
+		object value = m_methodInfo_GetLocalEulerAngles.Invoke(transform, new object[] { m_OldRotationOrder });
+		string temp = value.ToString();
+		//
+		temp = temp.Remove(0, 1);
+		temp = temp.Remove(temp.Length - 1, 1);
+		//
+		string[] tempVector3;
+		tempVector3 = temp.Split(',');
+		//
+		Vector3 vector3 = new Vector3(float.Parse(tempVector3[0]), float.Parse(tempVector3[1]), float.Parse(tempVector3[2]));
+		return vector3;
 	}
 }
