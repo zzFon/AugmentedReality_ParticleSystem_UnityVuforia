@@ -55,7 +55,6 @@
      <Compile Include="Assets\CoolShowWhenTrack.cs" />
      <Compile Include="Assets\Destroy.cs" />
      <Compile Include="Assets\Focusing.cs" />
-     <Compile Include="Assets\SetARCamera.cs" />
      <Compile Include="Assets\Sripts\CORE\CubeController.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\SinkWChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\SourceWChange.cs" />
@@ -68,6 +67,7 @@
      <Compile Include="Assets\Sripts\CORE\Paritcle_Change\SizeChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Paritcle_Change\SpeedChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Paritcle_Change\WaitTimeChange.cs" />
+     <Compile Include="Assets\Sripts\CORE\SetARCamera.cs" />
      <Compile Include="Assets\Sripts\CORE\TryAllMover.cs" />
      <Compile Include="Assets\Sripts\CORE\TryRotator.cs" />
      <Compile Include="Assets\Sripts\DestroyedByBoundary.cs" />

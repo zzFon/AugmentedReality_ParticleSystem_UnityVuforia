@@ -207,6 +207,7 @@ df5d4b697ae000e09aae57cb1c355732 Assembly-CSharp.dll:.Source
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Destroy
 0e2d21b3f7cd153d688197bd84e529de Assembly-CSharp.dll:.SpeedChange
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DestroyedByBoundary
+76d0594c1959831f5cc490e9fd902043 Assembly-CSharp.dll:.SetARCamera
 5af2bad14de0e1e00aabb7bc95c7ab22 Assembly-CSharp.dll:.WaitTimeChange
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
