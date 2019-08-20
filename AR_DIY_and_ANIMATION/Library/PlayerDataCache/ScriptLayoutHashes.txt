@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION.apk
+E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_2.0.apk
 SceneListBegin?
 Assets/AR_DIY_and_ANIMATION.unity
 SceneListEnd?
@@ -326,3 +326,4 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
+57ffab5f6e77b8211f361be04c2a9b76 Assembly-CSharp.dll:.VortexDChange

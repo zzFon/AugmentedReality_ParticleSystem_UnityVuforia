@@ -209,15 +209,17 @@ public class TryAllMover : MonoBehaviour {
 
 	Vector3 VortexVec(GameObject vortex)//3D
 	{
-		GameObject cube = GameObject.Find ("VortexVerticalCube");
+		//GameObject cube = GameObject.Find ("VortexVerticalCube");
 		Vector3 n = new Vector3(0,1,0);
-		if(cube.transform.localScale.x == 1.0f)
+		if(/*cube.transform.localScale.x == 1.0f*/GlobalVariable.VortexDirection == 1)
 		{
+			//clock wise
 			n = new Vector3(0,1,0);
 		}
-		else if(cube.transform.localScale.x == 2.0f)
+		else if(/*cube.transform.localScale.x == 2.0f*/GlobalVariable.VortexDirection == 2)
 		{
 			//n = new Vector3(0,0,-1);
+			//anti clock wise
 			n = new Vector3(0,-1,0);
 		}
 		Vector3 o = vortex.transform.position;

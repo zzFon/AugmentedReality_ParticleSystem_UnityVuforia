@@ -59,6 +59,7 @@
      <Compile Include="Assets\Sripts\CORE\Field_Change\SinkWChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\SourceWChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\UniformWChange.cs" />
+     <Compile Include="Assets\Sripts\CORE\Field_Change\VortexDChange.cs" />
      <Compile Include="Assets\Sripts\CORE\Field_Change\VortexWChange.cs" />
      <Compile Include="Assets\Sripts\CORE\GlobalVariable.cs" />
      <Compile Include="Assets\Sripts\CORE\ModeControl.cs" />

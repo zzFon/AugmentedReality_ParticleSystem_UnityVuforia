@@ -16,4 +16,5 @@ public class GlobalVariable : MonoBehaviour
 	public static float SinkW = 1.0f;// 1/2 = 50%
 	public static float VortexW = 1.0f;// 1/2 = 50%
 	public static float UniformW = 1.0f;// 1/2 = 50%
+	public static int VortexDirection = 2;// anti Clock Wise
 }
