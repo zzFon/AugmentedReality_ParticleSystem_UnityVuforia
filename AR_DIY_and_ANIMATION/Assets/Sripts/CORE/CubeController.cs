@@ -118,6 +118,12 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 		//builder.Build (targetName, 300);
 	}
 
+	public Toggle mul;
+	void Update()
+	{
+		GlobalVariable.MulOrNot = mul.isOn;
+	}
+
 	//public Text countText;
 	public Toggle SetSource, SetSink, SetVortex, SetUniform;
 	private int haveSource = 0,haveSink = 0,haveVortex = 0,haveUniform = 0;
@@ -131,145 +137,208 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 
 		dataSet.CreateTrackable(trackableSource, imageTargetCopy.gameObject);
 
-		if(SetSource.isOn == true)//Set Source
+		if (GlobalVariable.MulOrNot == false) 
 		{
-			GameObject cylinder;
-			if (haveSource == 0)//the first SOURCE,then create SOURCE
-			{
-				imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+			if (SetSource.isOn == true) {//Set Source
+				GameObject cylinder;
+				if (haveSource == 0) {//the first SOURCE,then create SOURCE
+					imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
 
-				cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				cylinder.name = "ssource";
+					cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+					cylinder.name = "ssource";
 
-				cylinder.transform.parent = imageTargetCopy.transform;
-				cylinder.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				cylinder.transform.localPosition = new Vector3(0,0,0);
-				//cylinder.transform.localPosition = imageTargetCopy.transform.position;
-				//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
-				cylinder.transform.localRotation = Quaternion.identity;
-				//cylinder.transform.parent = imageTargetCopy.gameObject.transform;
+					cylinder.transform.parent = imageTargetCopy.transform;
+					cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					cylinder.transform.localPosition = new Vector3 (0, 0, 0);
+					//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+					//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+					cylinder.transform.localRotation = Quaternion.identity;
+					//cylinder.transform.parent = imageTargetCopy.gameObject.transform;
 
-				source_field = StartCoroutine (CreateSourceField ());//start coroutine
-				haveSource = 1;
+					source_field = StartCoroutine (CreateSourceField ());//start coroutine
+					haveSource = 1;
+				} 
+				else if (haveSource == 1) {//not the first SOURCE,then renew SOURCE
+					GameObject ob = GameObject.Find ("Source_Field");
+					ob.name = "Destroyed_Source_Field";// disconnect the old one
+					imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+
+					cylinder = GameObject.Find ("ssource");
+
+					cylinder.transform.parent = imageTargetCopy.transform;
+					cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					cylinder.transform.localPosition = new Vector3 (0, 0, 0); 
+					cylinder.transform.localRotation = Quaternion.identity;
+					//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+					//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+
+					StopCoroutine (source_field);//end coroutine
+					source_field = StartCoroutine (CreateSourceField ());//start a new coroutine
+				}
 			}
-			else if(haveSource == 1)//not the first SOURCE,then renew SOURCE
+			else if (SetSink.isOn == true) 
 			{
-				GameObject ob = GameObject.Find ("Source_Field");
-				ob.name = "Destroyed_Source_Field";// disconnect the old one
-				imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+				GameObject sphere;
+				if (haveSink == 0)
+				{ //the first SINK,then create SINK
+					imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
 
-				cylinder = GameObject.Find ("ssource");
+					sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+					sphere.name = "ssink";
 
-				cylinder.transform.parent = imageTargetCopy.transform;
-				cylinder.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				cylinder.transform.localPosition = new Vector3(0,0,0); 
-				cylinder.transform.localRotation = Quaternion.identity;
-				//cylinder.transform.localPosition = imageTargetCopy.transform.position;
-				//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+					sphere.transform.parent = imageTargetCopy.transform;
+					sphere.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					sphere.transform.localPosition = new Vector3 (0, 0, 0);
+					sphere.transform.localRotation = Quaternion.identity;
 
-				StopCoroutine (source_field);//end coroutine
-				source_field = StartCoroutine (CreateSourceField ());//start a new coroutine
+					haveSink = 1;
+				} 
+				else if (haveSink == 1)
+				{ //not the first SINK,then renew SINK
+					GameObject ob = GameObject.Find ("Sink_Field");
+					ob.name = "Destroyed_Sink_Field";// disconnect the old one
+					imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
+
+					sphere = GameObject.Find ("ssink");
+
+					sphere.transform.parent = imageTargetCopy.transform;
+					sphere.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					sphere.transform.localPosition = new Vector3 (0, 0, 0);
+					sphere.transform.localRotation = Quaternion.identity;
+				}
+			} 
+			else if (SetVortex.isOn == true) 
+			{
+				GameObject cube;
+				if (haveVortex == 0)
+				{//the first VORTEX,then create VORTEX
+					imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
+
+					cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+					cube.name = "vvortex";
+
+					cube.transform.parent = imageTargetCopy.transform;
+					cube.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
+					cube.transform.localPosition = new Vector3 (0, 0, 0);
+					cube.transform.localRotation = Quaternion.identity;
+					print ("vvortex");
+
+					haveVortex = 1;
+				} 
+				else if (haveVortex == 1) 
+				{//not the first VORTEX,then renew VORTEX
+					GameObject ob = GameObject.Find ("Vortex_Field");
+					ob.name = "Destroyed_Vortex_Field";// disconnect the old one
+					imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
+
+					cube = GameObject.Find ("vvortex");
+
+					cube.transform.parent = imageTargetCopy.transform;
+					cube.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
+					cube.transform.localPosition = new Vector3 (0, 0, 0);
+					cube.transform.localRotation = Quaternion.identity;
+					print ("vvortex");
+				}
+			} 
+			else if (SetUniform.isOn == true)
+			{
+				GameObject cylinder;
+				if (haveUniform == 0)
+				{ //the first UNIFROM,then create UNIFORM
+					imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+
+					cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+					cylinder.name = "uuniform";
+
+					cylinder.transform.parent = imageTargetCopy.transform;
+					cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+					cylinder.transform.localPosition = new Vector3 (0, 0, 0);
+					cylinder.transform.localRotation = Quaternion.identity;
+					cylinder.transform.Rotate (0, 0, 90);
+
+					haveUniform = 1;
+				} 
+				else if (haveUniform == 1) 
+				{//not the first UNIFORM,then renew UNIFORM 
+					GameObject ob = GameObject.Find ("Uniform_Field");
+					ob.name = "Destroyed_Unfirom_Field";// disconnect the old one
+					imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+
+					cylinder = GameObject.Find ("uuniform");
+
+					cylinder.transform.parent = imageTargetCopy.transform;
+					cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+					//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+					cylinder.transform.localPosition = new Vector3 (0, 0, 0);
+					cylinder.transform.localRotation = Quaternion.identity;
+					cylinder.transform.Rotate (0, 0, 90);
+				}
 			}
 		} 
-		else if(SetSink.isOn == true)
+		else if (GlobalVariable.MulOrNot == true) 
 		{
-			GameObject sphere;
-			if (haveSink == 0) //the first SINK,then create SINK
-			{
-				imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
-
-				sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-				sphere.name = "ssink";
-
-				sphere.transform.parent = imageTargetCopy.transform;
-				sphere.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				sphere.transform.localPosition = new Vector3(0,0,0);
-				sphere.transform.localRotation = Quaternion.identity;
-
-				haveSink = 1;
-			} 
-			else if (haveSink == 1) //not the first SINK,then renew SINK
-			{
-				GameObject ob = GameObject.Find ("Sink_Field");
-				ob.name = "Destroyed_Sink_Field";// disconnect the old one
-				imageTargetCopy.gameObject.name = "Sink_Field";// Name the Target( Target is also a GameObject!)
-
-				sphere = GameObject.Find ("ssink");
-
-				sphere.transform.parent = imageTargetCopy.transform;
-				sphere.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				sphere.transform.localPosition = new Vector3(0,0,0);
-				sphere.transform.localRotation = Quaternion.identity;
-			}
-		}
-		else if(SetVortex.isOn == true)
-		{
-			GameObject cube;
-			if(haveVortex == 0)//the first VORTEX,then create VORTEX
-			{
-				imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
-
-				cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				cube.name ="vvortex";
-
-				cube.transform.parent = imageTargetCopy.transform;
-				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				cube.transform.localPosition = new Vector3(0,0,0);
-				cube.transform.localRotation = Quaternion.identity;
-				print ("vvortex");
-
-				haveVortex = 1;
-			}
-			else if(haveVortex == 1)//not the first VORTEX,then renew VORTEX
-			{
-				GameObject ob = GameObject.Find ("Vortex_Field");
-				ob.name = "Destroyed_Vortex_Field";// disconnect the old one
-				imageTargetCopy.gameObject.name = "Vortex_Field";// Name the Target( Target is also a GameObject!)
-
-				cube = GameObject.Find ("vvortex");
-
-				cube.transform.parent = imageTargetCopy.transform;
-				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
-				cube.transform.localPosition = new Vector3(0,0,0);
-				cube.transform.localRotation = Quaternion.identity;
-				print ("vvortex");
-			}
-		}
-		else if(SetUniform.isOn == true)
-		{
-			GameObject cylinder;
-			if (haveUniform == 0) //the first UNIFROM,then create UNIFORM
-			{
-				imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+			if (SetSource.isOn == true) 
+			{//Set Source
+				GameObject cylinder;
+				GlobalVariable.num_sources = GlobalVariable.num_sources + 1;
+				imageTargetCopy.gameObject.name = "Source_Field" + GlobalVariable.num_sources;// Name the Target( Target is also a GameObject!)
 
 				cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				cylinder.name = "uuniform";
+				cylinder.name = "ssource" + GlobalVariable.num_sources;
 
 				cylinder.transform.parent = imageTargetCopy.transform;
 				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
-				//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
-				cylinder.transform.Rotate (0,0,90);
 
-				haveUniform = 1;
+				source_field = StartCoroutine (CreateSourceField ());//start coroutine
 			}
-			else if (haveUniform == 1)//not the first UNIFORM,then renew UNIFORM 
+			else if (SetSink.isOn == true) 
 			{
-				GameObject ob = GameObject.Find ("Uniform_Field");
-				ob.name = "Destroyed_Unfirom_Field";// disconnect the old one
-				imageTargetCopy.gameObject.name = "Uniform_Field";// Name the Target( Target is also a GameObject!)
+				GameObject sphere;
+				GlobalVariable.num_sinks = GlobalVariable.num_sinks + 1;
+				imageTargetCopy.gameObject.name = "Sink_Field" + GlobalVariable.num_sinks;// Name the Target( Target is also a GameObject!)
 
-				cylinder = GameObject.Find ("uuniform");
+				sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+				sphere.name = "ssink" + GlobalVariable.num_sinks;
+
+				sphere.transform.parent = imageTargetCopy.transform;
+				sphere.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+				sphere.transform.localPosition = new Vector3 (0, 0, 0);
+				sphere.transform.localRotation = Quaternion.identity;
+			}
+			else if (SetVortex.isOn == true) 
+			{
+				GameObject cube;
+				GlobalVariable.num_vortexes = GlobalVariable.num_vortexes + 1;
+				imageTargetCopy.gameObject.name = "Vortex_Field" + GlobalVariable.num_vortexes;// Name the Target( Target is also a GameObject!)
+
+				cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+				cube.name = "vvortex" + GlobalVariable.num_vortexes;
+
+				cube.transform.parent = imageTargetCopy.transform;
+				cube.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+				cube.transform.localPosition = new Vector3 (0, 0, 0);
+				cube.transform.localRotation = Quaternion.identity;
+				print ("vvortex");
+			} 
+			else if (SetUniform.isOn == true)
+			{
+				GameObject cylinder;
+				GlobalVariable.num_uniforms = GlobalVariable.num_uniforms + 1;
+				imageTargetCopy.gameObject.name = "Uniform_Field" + GlobalVariable.num_uniforms;// Name the Target( Target is also a GameObject!)
+
+				cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+				cylinder.name = "uuniform" + GlobalVariable.num_uniforms;
 
 				cylinder.transform.parent = imageTargetCopy.transform;
 				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
-				//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
-				cylinder.transform.Rotate (0,0,90);
+				cylinder.transform.Rotate (0, 0, 90);
 			}
 		}
 			
@@ -288,91 +357,172 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 	public Toggle SourceVertical;//Normal Feild or Vertial Field
 	IEnumerator CreateSourceField () 
 	{
-		yield return new WaitForSeconds (0);
-		while (true)
+		if (GlobalVariable.MulOrNot == false)
 		{
-			GameObject source = GameObject.Find("ssource");
-
-			MeshRenderer mr = source.gameObject.GetComponent<MeshRenderer> ();
-			//print(mr.isVisible);
-			if (source != null) 
+			yield return new WaitForSeconds (0);
+			while (true) 
 			{
-				if (mr.isVisible) 
-				{
-					print ("FOUND");
+				GameObject source = GameObject.Find ("ssource");
 
-					sx = source.transform.position.x;
-					sy = source.transform.position.y;
-					sz = source.transform.position.z;
-					if (TwoDimension.isOn == true) {   //2D field
-						if (SourceVertical.isOn == false) { //Normal Field
-							offset1 = Random.Range (-0.01f, 0.01f);//x
-							offset2 = Random.Range (-0.01f, 0.01f);//z
-							offset3 = 0;//y
-						} else if (SourceVertical.isOn == true) {//Vertical Field
-							offset1 = Random.Range (-0.01f, 0.01f);//x
-							offset2 = 0;//z
-							offset3 = Random.Range (-0.01f, 0.01f);//y
-						}
-					} else if (ThreeDimension.isOn == true) { //3D field(no difference between Normal and Vertical Field)
-						offset1 = Random.Range (-0.01f, 0.01f);
-						offset2 = Random.Range (-0.01f, 0.01f);
-						offset3 = Random.Range (-0.01f, 0.01f);
-					}
+				MeshRenderer mr = source.gameObject.GetComponent<MeshRenderer> ();
+				//print(mr.isVisible);
+				if (source != null) {
+					if (mr.isVisible) {
+						print ("FOUND");
 
-					if (SelectFlakes.isOn == true)
-						T = Flake;
-					else if (SelectHearts.isOn == true)
-						T = Heart;
-					else if (SelectStars.isOn == true)
-						T = Star;
-					else if (SelectNinjas.isOn == true)
-						T = Ninja;
-					else if (SelectFlowers.isOn == true)
-						T = Flower;
-					else if (SelectLetters.isOn == true) 
-					{
-						int letter = Random.Range (1, 8);
-						switch (letter) 
-						{
-						case 1:
-							T = LetterA;
-							break;
-						case 2:
-							T = LetterB;
-							break;
-						case 3:
-							T = LetterC;
-							break;
-						case 4:
-							T = LetterD;
-							break;
-						case 5:
-							T = LetterX;
-							break;
-						case 6:
-							T = LetterY;
-							break;
-						case 7:
-							T = LetterZ;
-							break;
-						default:
-							T = LetterA;
-							break;
+						sx = source.transform.position.x;
+						sy = source.transform.position.y;
+						sz = source.transform.position.z;
+						if (TwoDimension.isOn == true) {   //2D field
+							if (SourceVertical.isOn == false) { //Normal Field
+								offset1 = Random.Range (-0.01f, 0.01f);//x
+								offset2 = Random.Range (-0.01f, 0.01f);//z
+								offset3 = 0;//y
+							} else if (SourceVertical.isOn == true) {//Vertical Field
+								offset1 = Random.Range (-0.01f, 0.01f);//x
+								offset2 = 0;//z
+								offset3 = Random.Range (-0.01f, 0.01f);//y
+							}
+						} else if (ThreeDimension.isOn == true) { //3D field(no difference between Normal and Vertical Field)
+							offset1 = Random.Range (-0.01f, 0.01f);
+							offset2 = Random.Range (-0.01f, 0.01f);
+							offset3 = Random.Range (-0.01f, 0.01f);
 						}
+
+						if (SelectFlakes.isOn == true)
+							T = Flake;
+						else if (SelectHearts.isOn == true)
+							T = Heart;
+						else if (SelectStars.isOn == true)
+							T = Star;
+						else if (SelectNinjas.isOn == true)
+							T = Ninja;
+						else if (SelectFlowers.isOn == true)
+							T = Flower;
+						else if (SelectLetters.isOn == true) {
+							int letter = Random.Range (1, 8);
+							switch (letter) {
+							case 1:
+								T = LetterA;
+								break;
+							case 2:
+								T = LetterB;
+								break;
+							case 3:
+								T = LetterC;
+								break;
+							case 4:
+								T = LetterD;
+								break;
+							case 5:
+								T = LetterX;
+								break;
+							case 6:
+								T = LetterY;
+								break;
+							case 7:
+								T = LetterZ;
+								break;
+							default:
+								T = LetterA;
+								break;
+							}
+						}
+						//GameObject AngularCube = GameObject.Find ("AngularCube");//是否自旋
+						if (/*AngularCube.transform.localScale.x */ GlobalVariable.AngularSpeed == 0) {
+							GameObject tt = Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
+							tt.transform.Rotate (new Vector3 (90, 0, 0));
+						} else
+							Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
+					} else
+						print ("LOST");
+					yield return new WaitForSeconds (GlobalVariable.WaitTime);
+				}
+			}
+		} 
+		else if (GlobalVariable.MulOrNot == true) 
+		{
+			yield return new WaitForSeconds (0);
+			while (true)
+			{
+				for (int i = 1; i <= GlobalVariable.num_sources; i++) {
+					GameObject source = GameObject.Find ("ssource"+i);
+
+					MeshRenderer mr = source.gameObject.GetComponent<MeshRenderer> ();
+					//print(mr.isVisible);
+					if (source != null) {
+						if (mr.isVisible) {
+							print ("FOUND");
+
+							sx = source.transform.position.x;
+							sy = source.transform.position.y;
+							sz = source.transform.position.z;
+							if (TwoDimension.isOn == true) {   //2D field
+								if (SourceVertical.isOn == false) { //Normal Field
+									offset1 = Random.Range (-0.01f, 0.01f);//x
+									offset2 = Random.Range (-0.01f, 0.01f);//z
+									offset3 = 0;//y
+								} else if (SourceVertical.isOn == true) {//Vertical Field
+									offset1 = Random.Range (-0.01f, 0.01f);//x
+									offset2 = 0;//z
+									offset3 = Random.Range (-0.01f, 0.01f);//y
+								}
+							} else if (ThreeDimension.isOn == true) { //3D field(no difference between Normal and Vertical Field)
+								offset1 = Random.Range (-0.01f, 0.01f);
+								offset2 = Random.Range (-0.01f, 0.01f);
+								offset3 = Random.Range (-0.01f, 0.01f);
+							}
+
+							if (SelectFlakes.isOn == true)
+								T = Flake;
+							else if (SelectHearts.isOn == true)
+								T = Heart;
+							else if (SelectStars.isOn == true)
+								T = Star;
+							else if (SelectNinjas.isOn == true)
+								T = Ninja;
+							else if (SelectFlowers.isOn == true)
+								T = Flower;
+							else if (SelectLetters.isOn == true) {
+								int letter = Random.Range (1, 8);
+								switch (letter) {
+								case 1:
+									T = LetterA;
+									break;
+								case 2:
+									T = LetterB;
+									break;
+								case 3:
+									T = LetterC;
+									break;
+								case 4:
+									T = LetterD;
+									break;
+								case 5:
+									T = LetterX;
+									break;
+								case 6:
+									T = LetterY;
+									break;
+								case 7:
+									T = LetterZ;
+									break;
+								default:
+									T = LetterA;
+									break;
+								}
+							}
+							//GameObject AngularCube = GameObject.Find ("AngularCube");//是否自旋
+							if (/*AngularCube.transform.localScale.x */ GlobalVariable.AngularSpeed == 0) {
+								GameObject tt = Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
+								tt.transform.Rotate (new Vector3 (90, 0, 0));
+							} else
+								Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
+						} else
+							print ("LOST");
+						yield return new WaitForSeconds (GlobalVariable.WaitTime);
 					}
-					//GameObject AngularCube = GameObject.Find ("AngularCube");//是否自旋
-					if (/*AngularCube.transform.localScale.x */ GlobalVariable.AngularSpeed == 0) 
-					{
-						GameObject tt = Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
-						tt.transform.Rotate (new Vector3 (90, 0, 0));
-					} 
-					else
-						Instantiate (T, new Vector3 (sx + offset1, sy + offset3, sz + offset2), new Quaternion (0, 0, 0, 0));
-				} 
-				else
-					print ("LOST");
-				yield return new WaitForSeconds (GlobalVariable.WaitTime);
+				}
 			}
 		}
 	}

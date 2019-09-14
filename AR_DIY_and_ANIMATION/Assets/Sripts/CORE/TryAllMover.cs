@@ -121,6 +121,7 @@ public class TryAllMover : MonoBehaviour {
 					}
 				}
 			}
+
 			for (int i = 1; i <= GlobalVariable.num_sinks; i++)
 			{
 				GameObject sink = GameObject.Find ("ssink" + i);
@@ -140,6 +141,44 @@ public class TryAllMover : MonoBehaviour {
 						Vector3 vecc = sink_w * SinkVec (sink);
 						rb.velocity = rb.velocity + vecc * GlobalVariable.SinkW;
 						w = w + sink_w * GlobalVariable.SinkW;
+					}
+				}
+			}
+
+			for (int i = 1; i <= GlobalVariable.num_vortexes; i++)
+			{
+				GameObject vortex = GameObject.Find ("vvortex" + i);
+				if (vortex != null) 
+				{
+					MeshRenderer mrvortex = vortex.GetComponent<MeshRenderer> ();
+					if (mrvortex.isVisible)
+					{
+						print ("Vortex " + i + " FOUND");
+						vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
+						vortex_w = 3.0f / vortex_dis;
+
+						Vector3 vecc = vortex_w * VortexVec (vortex);
+						rb.velocity = rb.velocity + vecc * GlobalVariable.VortexW;
+						w = w + vortex_w * GlobalVariable.VortexW;
+					}
+				}
+			}
+
+			for (int i = 1; i <= GlobalVariable.num_uniforms; i++)
+			{
+				GameObject uniform = GameObject.Find ("uuniform" + i);
+				if (uniform != null)
+				{
+					MeshRenderer mruniform = uniform.GetComponent<MeshRenderer> ();
+					if (mruniform.isVisible) 
+					{
+						print ("Uniform " + i + " FOUND");
+						uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
+						uniform_w = 3.0f / uniform_dis;
+
+						Vector3 vecc = uniform_w * UniformVec (uniform);
+						rb.velocity = rb.velocity + vecc * GlobalVariable.UniformW;
+						w = w + uniform_w * GlobalVariable.UniformW;
 					}
 				}
 			}
@@ -180,6 +219,7 @@ public class TryAllMover : MonoBehaviour {
 					w = w + sink_w * GlobalVariable.SinkW;
 				}
 			}
+
 			GameObject vortex = GameObject.Find ("vvortex");
 			if (vortex != null)
 			{
@@ -195,6 +235,7 @@ public class TryAllMover : MonoBehaviour {
 					w = w + vortex_w * GlobalVariable.VortexW;
 				}
 			}
+
 			GameObject uniform = GameObject.Find ("uuniform");
 			if (uniform != null) 
 			{

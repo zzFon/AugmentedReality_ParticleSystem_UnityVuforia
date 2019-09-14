@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_2.0.apk
+E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.0.apk
 SceneListBegin?
 Assets/AR_DIY_and_ANIMATION.unity
 SceneListEnd?
@@ -101,6 +101,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 92d7a83ea3c7404e484f3b2eed421855 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 92d7a83ea3c7404e484f3b2eed421855 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+57ffab5f6e77b8211f361be04c2a9b76 Assembly-CSharp.dll:.VortexDChange
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -203,7 +204,7 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 df5d4b697ae000e09aae57cb1c355732 Assembly-CSharp.dll:.Source
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DestroyedByCore
 413b1fc399dbd5899a0a69ad9c375448 Assembly-CSharp.dll:.SizeChange
-8f3e0006ff8539c007857641e656313b Assembly-CSharp.dll:.CubeController
+95310ae8625bc06e9f77bca9bdf016cb Assembly-CSharp.dll:.CubeController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Destroy
 0e2d21b3f7cd153d688197bd84e529de Assembly-CSharp.dll:.SpeedChange
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DestroyedByBoundary
@@ -326,4 +327,3 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
-57ffab5f6e77b8211f361be04c2a9b76 Assembly-CSharp.dll:.VortexDChange
