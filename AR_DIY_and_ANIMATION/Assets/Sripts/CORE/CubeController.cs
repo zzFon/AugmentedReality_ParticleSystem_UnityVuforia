@@ -213,8 +213,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 				cube.name ="vvortex";
 
 				cube.transform.parent = imageTargetCopy.transform;
-				//cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
+				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
+				//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
 				cube.transform.localPosition = new Vector3(0,0,0);
 				cube.transform.localRotation = Quaternion.identity;
 				print ("vvortex");
@@ -230,8 +230,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 				cube = GameObject.Find ("vvortex");
 
 				cube.transform.parent = imageTargetCopy.transform;
-				//cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
-				cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
+				cube.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
+				//cube.transform.localScale = new Vector3(0.00f,0.00f,0.00f);
 				cube.transform.localPosition = new Vector3(0,0,0);
 				cube.transform.localRotation = Quaternion.identity;
 				print ("vvortex");
@@ -248,8 +248,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 				cylinder.name = "uuniform";
 
 				cylinder.transform.parent = imageTargetCopy.transform;
-				//cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
-				cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+				//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
 				cylinder.transform.Rotate (0,0,90);
@@ -265,8 +265,8 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 				cylinder = GameObject.Find ("uuniform");
 
 				cylinder.transform.parent = imageTargetCopy.transform;
-				//cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
-				cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+				cylinder.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+				//cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 				cylinder.transform.localPosition = new Vector3 (0, 0, 0);
 				cylinder.transform.localRotation = Quaternion.identity;
 				cylinder.transform.Rotate (0,0,90);

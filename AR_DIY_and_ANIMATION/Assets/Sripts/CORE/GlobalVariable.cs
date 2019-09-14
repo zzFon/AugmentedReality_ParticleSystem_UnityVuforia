@@ -17,4 +17,15 @@ public class GlobalVariable : MonoBehaviour
 	public static float VortexW = 1.0f;// 1/2 = 50%
 	public static float UniformW = 1.0f;// 1/2 = 50%
 	public static int VortexDirection = 2;// anti Clock Wise
+
+	//Fields
+	public static string[] sources;
+	public static int num_sources = 0;
+	public static string[] sinks;
+	public static int num_sinks = 0;
+	public static string[] vortexes;
+	public static int num_vortexes = 0;
+	public static string[] uniforms;
+	public static int num_uniforms = 0;
+	public static bool MulOrNot = false;
 }

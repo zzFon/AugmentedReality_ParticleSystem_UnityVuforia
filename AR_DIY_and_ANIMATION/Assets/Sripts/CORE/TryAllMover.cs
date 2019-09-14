@@ -100,81 +100,115 @@ public class TryAllMover : MonoBehaviour {
 		vortex_w = 0;
 		uniform_w = 0;
 		w = 0;
-		GameObject source = GameObject.Find("ssource");
-		if (source != null) 
-		{
-			MeshRenderer mrsource = source.GetComponent<MeshRenderer> ();
-			if (mrsource.isVisible) 
-			{
-				print("Source FOUND");
-				source_dis = Vector3.Distance (rb.position, source.transform.position);
-				source_w = 1.0f / source_dis;
 
-				Vector3 vecc = source_w * SourceVec (source);
-				//rb.velocity = rb.velocity + vecc * source_f;
-				rb.velocity = rb.velocity + vecc * GlobalVariable.SourceW;
-				//Vector3 acc = source_w * SourceVec (source);
-				//w = w + source_w * source_f;
-				w = w + source_w * GlobalVariable.SourceW;
+		if (GlobalVariable.MulOrNot == true) 
+		{
+			for (int i = 1; i <= GlobalVariable.num_sources; i++) 
+			{
+				GameObject source = GameObject.Find ("ssource" + i);
+				if (source != null)
+				{
+					MeshRenderer mrsource = source.GetComponent<MeshRenderer> ();
+					if (mrsource.isVisible) 
+					{
+						print ("Source " + i + " FOUND");
+						source_dis = Vector3.Distance (rb.position, source.transform.position);
+						source_w = 1.0f / source_dis;
+
+						Vector3 vecc = source_w * SourceVec (source);
+						rb.velocity = rb.velocity + vecc * GlobalVariable.SourceW;
+						w = w + source_w * GlobalVariable.SourceW;
+					}
+				}
 			}
-		}
-		GameObject sink = GameObject.Find ("ssink");
-		if (sink != null) 
-		{
-			MeshRenderer mrsink = sink.GetComponent<MeshRenderer> ();
-			if (mrsink.isVisible) 
+			for (int i = 1; i <= GlobalVariable.num_sinks; i++)
 			{
-				print("Sink FOUND");
-				sink_dis = Vector3.Distance (rb.position, sink.transform.position);
-				sink_w = 2.0f / sink_dis;
-				//sink_w = (5.0f / sink_dis);
+				GameObject sink = GameObject.Find ("ssink" + i);
+				if (sink != null) 
+				{
+					MeshRenderer mrsink = sink.GetComponent<MeshRenderer> ();
+					if (mrsink.isVisible) 
+					{
+						print ("Sink " + i + " FOUND");
+						sink_dis = Vector3.Distance (rb.position, sink.transform.position);
+						sink_w = 2.0f / sink_dis;
+						//sink_w = (5.0f / sink_dis);
 
-				if(sink_dis <= 0.008)
-					Destroy (gameObject);
+						if (sink_dis <= 0.008)
+							Destroy (gameObject);
 
-				Vector3 vecc = sink_w * SinkVec (sink);
-				//rb.velocity = rb.velocity + vecc * sink_f;
-				rb.velocity = rb.velocity + vecc * GlobalVariable.SinkW;
-				//Vector3 acc = sink_w * SinkVec (sink);
-				//w = w + sink_w * sink_f;
-				w = w + sink_w * GlobalVariable.SinkW;
+						Vector3 vecc = sink_w * SinkVec (sink);
+						rb.velocity = rb.velocity + vecc * GlobalVariable.SinkW;
+						w = w + sink_w * GlobalVariable.SinkW;
+					}
+				}
 			}
-		}
-		GameObject vortex = GameObject.Find("vvortex");
-		if (vortex != null) 
+		} 
+		else if (GlobalVariable.MulOrNot == false) 
 		{
-			MeshRenderer mrvortex = vortex.GetComponent<MeshRenderer> ();
-			if (mrvortex.isVisible)
+			GameObject source = GameObject.Find ("ssource");
+			if (source != null) 
 			{
-				print("Vortex FOUND");
-				vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
-				vortex_w = 3.0f / vortex_dis;
-				//vortex_w = 10.0f / vortex_dis;
+				MeshRenderer mrsource = source.GetComponent<MeshRenderer> ();
+				if (mrsource.isVisible)
+				{
+					print ("Source FOUND");
+					source_dis = Vector3.Distance (rb.position, source.transform.position);
+					source_w = 1.0f / source_dis;
 
-				Vector3 vecc = vortex_w * VortexVec (vortex);
-				//rb.velocity = rb.velocity + vecc * vortex_f;
-				rb.velocity = rb.velocity + vecc * GlobalVariable.VortexW;
-				//Vector3 acc = vortex_w * VortexVec (vortex);
-				//w = w + vortex_w * vortex_f;
-				w = w + vortex_w * GlobalVariable.VortexW;
+					Vector3 vecc = source_w * SourceVec (source);
+					rb.velocity = rb.velocity + vecc * GlobalVariable.SourceW;
+					w = w + source_w * GlobalVariable.SourceW;
+				}
 			}
-	    }
-		GameObject uniform = GameObject.Find ("uuniform");
-		if (uniform != null) 
-		{
-			MeshRenderer mruniform = uniform.GetComponent<MeshRenderer> ();
-			if (mruniform.isVisible) 
-			{
-				print("Uniform FOUND");
-				uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
-				uniform_w = 3.0f / uniform_dis;
 
-				Vector3 vecc = uniform_w * UniformVec (uniform);
-				//rb.velocity = rb.velocity + vecc * uniform_f;
-				rb.velocity = rb.velocity + vecc * GlobalVariable.UniformW;
-				//Vector3 acc = uniform_w * UniformVec (uniform);
-				//w = w + uniform_w * uniform_f;
-				w = w + uniform_w * GlobalVariable.UniformW;
+			GameObject sink = GameObject.Find ("ssink");
+			if (sink != null) 
+			{
+				MeshRenderer mrsink = sink.GetComponent<MeshRenderer> ();
+				if (mrsink.isVisible) 
+				{
+					print ("Sink FOUND");
+					sink_dis = Vector3.Distance (rb.position, sink.transform.position);
+					sink_w = 2.0f / sink_dis;
+
+					if (sink_dis <= 0.008)
+						Destroy (gameObject);
+
+					Vector3 vecc = sink_w * SinkVec (sink);
+					rb.velocity = rb.velocity + vecc * GlobalVariable.SinkW;
+					w = w + sink_w * GlobalVariable.SinkW;
+				}
+			}
+			GameObject vortex = GameObject.Find ("vvortex");
+			if (vortex != null)
+			{
+				MeshRenderer mrvortex = vortex.GetComponent<MeshRenderer> ();
+				if (mrvortex.isVisible) 
+				{
+					print ("Vortex FOUND");
+					vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
+					vortex_w = 3.0f / vortex_dis;
+
+					Vector3 vecc = vortex_w * VortexVec (vortex);
+					rb.velocity = rb.velocity + vecc * GlobalVariable.VortexW;
+					w = w + vortex_w * GlobalVariable.VortexW;
+				}
+			}
+			GameObject uniform = GameObject.Find ("uuniform");
+			if (uniform != null) 
+			{
+				MeshRenderer mruniform = uniform.GetComponent<MeshRenderer> ();
+				if (mruniform.isVisible) 
+				{
+					print ("Uniform FOUND");
+					uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
+					uniform_w = 3.0f / uniform_dis;
+
+					Vector3 vecc = uniform_w * UniformVec (uniform);
+					rb.velocity = rb.velocity + vecc * GlobalVariable.UniformW;
+					w = w + uniform_w * GlobalVariable.UniformW;
+				}
 			}
 		}
 		/**/
@@ -182,13 +216,6 @@ public class TryAllMover : MonoBehaviour {
 		if (w != 0)
 		{
 			rb.velocity = (rb.velocity / w) * GlobalVariable.Speed;
-			//field = (field/w)*speed;
-			//rb.AddForce(field);
-			//print ("ax = "+field.x+",ay = "+field.y+",az = "+field.z);
-			//print(rb.velocity.x+","+rb.velocity.y+","+rb.velocity.z);
-			//ROTATE
-			/*GameObject AngularCube =  GameObject.Find("AngularCube");
-			float AngularSpeed = 1000*AngularCube.transform.localScale.x;*/
 			transform.Rotate (new Vector3 (rb.velocity.x,rb.velocity.y,rb.velocity.z) * 1000 *GlobalVariable.AngularSpeed *Time.deltaTime);
 		}
 	}
@@ -241,6 +268,7 @@ public class TryAllMover : MonoBehaviour {
 		float angleY = unf.transform.rotation.eulerAngles.y;
 		float angleZ = unf.transform.rotation.eulerAngles.z;*/
 		Vector3 ang = GetInspectorRotationValueMethod (unf.transform);
+		//Vector3 ang = GetInspectorRotationValueMethod (uniform.transform);
 		float tx = Mathf.Cos (ang.y/180*Mathf.PI);
 		float ty = 0; // only considered 2D field
 		float tz = -1 * Mathf.Sin (ang.y/180*Mathf.PI);
