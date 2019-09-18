@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.0.apk
+E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.1.apk
 SceneListBegin?
 Assets/AR_DIY_and_ANIMATION.unity
 SceneListEnd?
@@ -166,6 +166,7 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
+ab674c035c79eb080e1f9bcdc09ab18e Assembly-CSharp.dll:.PlayerTest
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 2e0fd93f459db951da0e2e94e2e33fb7 Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour
