@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.1.apk
+E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.3.apk
 SceneListBegin?
 Assets/AR_DIY_and_ANIMATION.unity
 SceneListEnd?
