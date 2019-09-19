@@ -12,17 +12,17 @@ public class TryAllMover : MonoBehaviour {
 
 	private Rigidbody rb;
 	private float original_scale_x,original_scale_y,original_scale_z;
-	private float source_dis,sink_dis,vortex_dis,uniform_dis;
+	private float source_dis,sink_dis,vortex_dis,uniform_dis,emitter_dis;
 
 	private float lifeTime, bornTime, lifeSpan;
 	private float speed;
 
-	private float source_w = 0;
+	private float source_w = 0,emitter_w = 0;
 	private float sink_w = 0;
 	private float vortex_w = 0;
 	private float uniform_w = 0;
 	private float w = 0;
-	private float source_f, sink_f, vortex_f, uniform_f;
+	private float source_f, sink_f, vortex_f, uniform_f,emitter_f;
 	public void ChangeSize()
 	{
 		//GameObject SizeCube =  GameObject.Find("SizeCube");//size
@@ -111,7 +111,7 @@ public class TryAllMover : MonoBehaviour {
 					MeshRenderer mrsource = source.GetComponent<MeshRenderer> ();
 					if (mrsource.isVisible) 
 					{
-						print ("Source " + i + " FOUND");
+						//print ("Source " + i + " FOUND");
 						source_dis = Vector3.Distance (rb.position, source.transform.position);
 						source_w = 1.0f / source_dis;
 
@@ -130,7 +130,7 @@ public class TryAllMover : MonoBehaviour {
 					MeshRenderer mrsink = sink.GetComponent<MeshRenderer> ();
 					if (mrsink.isVisible) 
 					{
-						print ("Sink " + i + " FOUND");
+						//print ("Sink " + i + " FOUND");
 						sink_dis = Vector3.Distance (rb.position, sink.transform.position);
 						sink_w = 2.0f / sink_dis;
 						//sink_w = (5.0f / sink_dis);
@@ -153,7 +153,7 @@ public class TryAllMover : MonoBehaviour {
 					MeshRenderer mrvortex = vortex.GetComponent<MeshRenderer> ();
 					if (mrvortex.isVisible)
 					{
-						print ("Vortex " + i + " FOUND");
+						//print ("Vortex " + i + " FOUND");
 						vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
 						vortex_w = 3.0f / vortex_dis;
 
@@ -172,7 +172,7 @@ public class TryAllMover : MonoBehaviour {
 					MeshRenderer mruniform = uniform.GetComponent<MeshRenderer> ();
 					if (mruniform.isVisible) 
 					{
-						print ("Uniform " + i + " FOUND");
+						//print ("Uniform " + i + " FOUND");
 						uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
 						uniform_w = 3.0f / uniform_dis;
 
@@ -185,13 +185,29 @@ public class TryAllMover : MonoBehaviour {
 		} 
 		else if (GlobalVariable.MulOrNot == false) 
 		{
+			GameObject emitter = GameObject.Find ("eemitter");
+			if (emitter != null) 
+			{
+				MeshRenderer mremitter = emitter.GetComponent<MeshRenderer> ();
+				if (mremitter.isVisible)
+				{
+					//print ("Source FOUND");
+					emitter_dis = Vector3.Distance (rb.position, emitter.transform.position);
+					emitter_w = 1.0f / emitter_dis;
+
+					Vector3 vecc = emitter_w * EmitterVec (emitter);
+					rb.velocity = rb.velocity + vecc * GlobalVariable.SourceW;
+					w = w + emitter_w * GlobalVariable.SourceW;
+				}
+			}
+
 			GameObject source = GameObject.Find ("ssource");
 			if (source != null) 
 			{
 				MeshRenderer mrsource = source.GetComponent<MeshRenderer> ();
 				if (mrsource.isVisible)
 				{
-					print ("Source FOUND");
+					//print ("Source FOUND");
 					source_dis = Vector3.Distance (rb.position, source.transform.position);
 					source_w = 1.0f / source_dis;
 
@@ -207,7 +223,7 @@ public class TryAllMover : MonoBehaviour {
 				MeshRenderer mrsink = sink.GetComponent<MeshRenderer> ();
 				if (mrsink.isVisible) 
 				{
-					print ("Sink FOUND");
+					//print ("Sink FOUND");
 					sink_dis = Vector3.Distance (rb.position, sink.transform.position);
 					sink_w = 2.0f / sink_dis;
 
@@ -226,7 +242,7 @@ public class TryAllMover : MonoBehaviour {
 				MeshRenderer mrvortex = vortex.GetComponent<MeshRenderer> ();
 				if (mrvortex.isVisible) 
 				{
-					print ("Vortex FOUND");
+					//print ("Vortex FOUND");
 					vortex_dis = Vector3.Distance (rb.position, vortex.transform.position);
 					vortex_w = 3.0f / vortex_dis;
 
@@ -242,7 +258,7 @@ public class TryAllMover : MonoBehaviour {
 				MeshRenderer mruniform = uniform.GetComponent<MeshRenderer> ();
 				if (mruniform.isVisible) 
 				{
-					print ("Uniform FOUND");
+					//print ("Uniform FOUND");
 					uniform_dis = Vector3.Distance (rb.position, uniform.transform.position);
 					uniform_w = 3.0f / uniform_dis;
 
@@ -260,7 +276,14 @@ public class TryAllMover : MonoBehaviour {
 			transform.Rotate (new Vector3 (rb.velocity.x,rb.velocity.y,rb.velocity.z) * 1000 *GlobalVariable.AngularSpeed *Time.deltaTime);
 		}
 	}
-	
+
+	Vector3 EmitterVec(GameObject emitter)//3D
+	{
+		Vector3 emitter_vec = rb.position-emitter.transform.position;
+		emitter_vec = emitter_vec / Vector3.Magnitude (emitter_vec);
+		return emitter_vec;
+	}
+
 	Vector3 SourceVec(GameObject source)//3D
 	{
 		Vector3 source_vec = rb.position-source.transform.position;

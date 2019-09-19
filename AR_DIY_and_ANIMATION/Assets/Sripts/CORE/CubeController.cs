@@ -126,7 +126,7 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 
 	//public Text countText;
 	public Toggle SetSource, SetSink, SetVortex, SetUniform;
-	private int haveSource = 0,haveSink = 0,haveVortex = 0,haveUniform = 0;
+	private int haveSource = 0,haveSink = 0,haveVortex = 0,haveUniform = 0,haveEmitter = 0;
 	private Coroutine source_field;
 	public void OnNewTrackableSource(TrackableSource trackableSource)
 	{
@@ -139,41 +139,80 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 
 		if (GlobalVariable.MulOrNot == false) 
 		{
-			if (SetSource.isOn == true) {//Set Source
-				GameObject cylinder;
-				if (haveSource == 0) {//the first SOURCE,then create SOURCE
-					imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+			if (SetSource.isOn == true)
+			{//Set Source
+				if (GlobalVariable.EmitterOnly == true) // Emitter Only
+				{
+					GameObject capsule;
+					if (haveEmitter == 0) 
+					{//the first SOURCE,then create SOURCE
+						imageTargetCopy.gameObject.name = "Emitter_Field";// Name the Target( Target is also a GameObject!)
 
-					cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-					cylinder.name = "ssource";
+						capsule = GameObject.CreatePrimitive (PrimitiveType.Capsule);
+						capsule.name = "eemitter";
 
-					cylinder.transform.parent = imageTargetCopy.transform;
-					cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
-					cylinder.transform.localPosition = new Vector3 (0, 0, 0);
-					//cylinder.transform.localPosition = imageTargetCopy.transform.position;
-					//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
-					cylinder.transform.localRotation = Quaternion.identity;
-					//cylinder.transform.parent = imageTargetCopy.gameObject.transform;
+						capsule.transform.parent = imageTargetCopy.transform;
+						capsule.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+						capsule.transform.localPosition = new Vector3 (0, 0, 0);
+						//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+						//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+						capsule.transform.localRotation = Quaternion.identity;
+						//cylinder.transform.parent = imageTargetCopy.gameObject.transform;
 
-					source_field = StartCoroutine (CreateSourceField ());//start coroutine
-					haveSource = 1;
-				} 
-				else if (haveSource == 1) {//not the first SOURCE,then renew SOURCE
-					GameObject ob = GameObject.Find ("Source_Field");
-					ob.name = "Destroyed_Source_Field";// disconnect the old one
-					imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+						haveEmitter = 1;
+					} 
+					else if (haveEmitter == 1) 
+					{//not the first SOURCE,then renew SOURCE
+						GameObject ob = GameObject.Find ("Emitter_Field");
+						ob.name = "Destroyed_Emitter_Field";// disconnect the old one
+						imageTargetCopy.gameObject.name = "Emitter_Field";// Name the Target( Target is also a GameObject!)
 
-					cylinder = GameObject.Find ("ssource");
+						capsule = GameObject.Find ("eemitter");
 
-					cylinder.transform.parent = imageTargetCopy.transform;
-					cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
-					cylinder.transform.localPosition = new Vector3 (0, 0, 0); 
-					cylinder.transform.localRotation = Quaternion.identity;
-					//cylinder.transform.localPosition = imageTargetCopy.transform.position;
-					//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+						capsule.transform.parent = imageTargetCopy.transform;
+						capsule.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+						capsule.transform.localPosition = new Vector3 (0, 0, 0); 
+						capsule.transform.localRotation = Quaternion.identity;
+						//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+						//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+					}
+				}
+				else if (GlobalVariable.EmitterOnly == false) // Source
+				{
+					GameObject cylinder;
+					if (haveSource == 0) {//the first SOURCE,then create SOURCE
+						imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
 
-					StopCoroutine (source_field);//end coroutine
-					source_field = StartCoroutine (CreateSourceField ());//start a new coroutine
+						cylinder = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+						cylinder.name = "ssource";
+
+						cylinder.transform.parent = imageTargetCopy.transform;
+						cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+						cylinder.transform.localPosition = new Vector3 (0, 0, 0);
+						//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+						//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+						cylinder.transform.localRotation = Quaternion.identity;
+						//cylinder.transform.parent = imageTargetCopy.gameObject.transform;
+
+						source_field = StartCoroutine (CreateSourceField ());//start coroutine
+						haveSource = 1;
+					} else if (haveSource == 1) {//not the first SOURCE,then renew SOURCE
+						GameObject ob = GameObject.Find ("Source_Field");
+						ob.name = "Destroyed_Source_Field";// disconnect the old one
+						imageTargetCopy.gameObject.name = "Source_Field";// Name the Target( Target is also a GameObject!)
+
+						cylinder = GameObject.Find ("ssource");
+
+						cylinder.transform.parent = imageTargetCopy.transform;
+						cylinder.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
+						cylinder.transform.localPosition = new Vector3 (0, 0, 0); 
+						cylinder.transform.localRotation = Quaternion.identity;
+						//cylinder.transform.localPosition = imageTargetCopy.transform.position;
+						//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
+
+						StopCoroutine (source_field);//end coroutine
+						source_field = StartCoroutine (CreateSourceField ());//start a new coroutine
+					}
 				}
 			}
 			else if (SetSink.isOn == true) 

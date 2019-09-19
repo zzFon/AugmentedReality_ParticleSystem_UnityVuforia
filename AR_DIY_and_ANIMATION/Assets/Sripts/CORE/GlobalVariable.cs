@@ -17,6 +17,7 @@ public class GlobalVariable : MonoBehaviour
 	public static float VortexW = 1.0f;// 1/2 = 50%
 	public static float UniformW = 1.0f;// 1/2 = 50%
 	public static int VortexDirection = 2;// anti Clock Wise
+	public static bool EmitterOnly = false;
 
 	//Fields
 	public static string[] sources;
