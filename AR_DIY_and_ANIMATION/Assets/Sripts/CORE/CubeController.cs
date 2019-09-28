@@ -152,7 +152,7 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 						capsule.name = "eemitter";
 
 						capsule.transform.parent = imageTargetCopy.transform;
-						capsule.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+						capsule.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 						capsule.transform.localPosition = new Vector3 (0, 0, 0);
 						//cylinder.transform.localPosition = imageTargetCopy.transform.position;
 						//print (imageTargetCopy.transform.position.x+","+imageTargetCopy.transform.position.y+","+imageTargetCopy.transform.position.z);
@@ -170,7 +170,7 @@ public class CubeController : MonoBehaviour, IUserDefinedTargetEventHandler
 						capsule = GameObject.Find ("eemitter");
 
 						capsule.transform.parent = imageTargetCopy.transform;
-						capsule.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+						capsule.transform.localScale = new Vector3 (0.00f, 0.00f, 0.00f);
 						capsule.transform.localPosition = new Vector3 (0, 0, 0); 
 						capsule.transform.localRotation = Quaternion.identity;
 						//cylinder.transform.localPosition = imageTargetCopy.transform.position;

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_3.3.apk
+E:/Unity Project/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION/AR_DIY_and_ANIMATION_4.2.apk
 SceneListBegin?
 Assets/AR_DIY_and_ANIMATION.unity
 SceneListEnd?
@@ -246,6 +246,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TryUnifromMover
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+7520c2c51e7b2ced5c36d4535f60c904 Assembly-CSharp.dll:.SourceEChange
 9f209639652efd0dc268352541733716 Assembly-CSharp.dll:.LifeSpanChange
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.SourceMover6
 064a4d379f941f46fd977f05b72ab0da Assembly-CSharp.dll:.SourceWChange
