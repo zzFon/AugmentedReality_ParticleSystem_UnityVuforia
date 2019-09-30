@@ -7,8 +7,8 @@ Unity 2017.4.2f2
 Vuforia 8.3 (Unity version)
 ## Project Document Structure
 AR_DIY_AND_ANIMATION
----Assets                       // core file
-------Models                    // primitive or in-progress particle models
-------Prefabs                   // well-done particle prefabs
-------Scripts                   // scripts file
----.apk                         // built apks                                  
+---Assets                       // core file  
+------Models                    // primitive or in-progress particle models  
+------Prefabs                   // well-done particle prefabs  
+------Scripts                   // scripts file  
+---.apk                         // built apks                                    
